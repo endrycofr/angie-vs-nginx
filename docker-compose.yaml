@@ -1,0 +1,22 @@
+services:
+  app:
+    build: ./app
+    container_name: node-app
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+
+  angie:
+    image: docker.angie.software/angie:latest
+    container_name: angie
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/default.conf:/etc/angie/http.d/default.conf:ro
+    depends_on:
+      - app
