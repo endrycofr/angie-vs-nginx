@@ -17,6 +17,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./config/default.conf:/etc/angie/http.d/default.conf:ro
+      - ./config/angie.conf:/etc/angie/http.d/angie.conf:ro
+      - ./ssl:/etc/angie/ssl
     depends_on:
       - app
