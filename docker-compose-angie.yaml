@@ -1,0 +1,24 @@
+services:
+  app:
+    build: ./app-angie
+    container_name: node-app-angie
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+
+  angie:
+    image: docker.angie.software/angie:latest
+    container_name: angie
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443/tcp"  # TCP untuk HTTP/1.1 & HTTP/2
+      - "443:443/udp"  # UDP WAJIB untuk QUIC / HTTP/3
+    volumes:
+      - ./config/angie.conf:/etc/angie/http.d/angie.conf:ro
+      - ./ssl:/etc/angie/ssl:ro
+    depends_on:
+      - app
