@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 5s # Tarik metrik setiap 5 detik sekali
+
+scrape_configs:
+  - job_name: 'angie-webserver'
+    metrics_path: '/metrics'
+    static_configs:
+      # 'angie' adalah nama service container di docker-compose
+      - targets: ['angie:8080']
